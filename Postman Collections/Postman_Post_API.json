@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "17174d4a-1990-4b45-9bcc-9c0272b6ef1e",
+		"name": "Postman-POST_Reference",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post_TC1 Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "25aedcaa-9c7d-4bbd-b114-403213f39fb9",
+						"exec": [
+							"//Step 1 : Validate Response Status Code\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"//Step 2 : Set expected results \r",
+							"//Step 2.1 : Generate date in required format\r",
+							"var expectedDate = new Date().toISOString().slice(0,13);\r",
+							"//Step 2.2 : Extract request body.\r",
+							"//var requestBody = pm.request.body.raw ;\r",
+							"//requestBody=JSON.parse(requestBody);\r",
+							"var requestBody = JSON.parse(pm.request.body);\r",
+							"//console.log(requestBody);\r",
+							"var req_name=requestBody.name;\r",
+							"var req_job=requestBody.job;\r",
+							"\r",
+							"//Step 3 : Validate Response Body\r",
+							"//Step 3.1 : Extract response body and save it into local variable\r",
+							"var responseBody = pm.response.json();\r",
+							"//Step 3.2 : Extract response body parameters from response extracted in Step 2.1\r",
+							"var res_name = responseBody.name;\r",
+							"var res_job=responseBody.job;\r",
+							"var res_id=responseBody.id;\r",
+							"var res_createdAt=responseBody.createdAt;\r",
+							"//Step 3.3 : Validate response body \r",
+							"pm.test(\"Validate response body parameter : NAME\", function () {\r",
+							"    pm.expect(res_name).to.eql(req_name)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate response body parameter : JOB\", function () {\r",
+							"    pm.expect(res_job).to.eql(req_job)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate response body parameter : ID\", function () {\r",
+							"    pm.expect(res_id).to.not.null;\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Validate response body parameter : CREATEDAT\", function () {\r",
+							"    pm.expect(res_createdAt.slice(0,13)).to.eql(expectedDate)\r",
+							"})\r",
+							"\r",
+							"//postman.setNextRequest(\"Post_TC1 Copy\");\r",
+							"//console.log(\"chain created\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "a01849c2-cd34-40df-a8e9-440804b76daa",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Pravin\",\r\n    \"job\": \"Tester\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{POST_URL}}"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "df2f19d4-abce-41cd-bd36-13fb738d1af1",
+			"key": "Coll_Random_Name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "1ce37ba1-6706-4831-b468-da9e48de52c0",
+			"key": "Coll_Random_Job",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
